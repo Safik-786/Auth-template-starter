@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import authApi from "../axiosAuth";
+import authClient from "../lib/axiosClient";
 
 export const AuthContext = createContext();
 
@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchMe = async () => {
       try {
-        const response = await authApi.get("/auth/me");
+        const response = await authClient.get("/auth/me");
         setUser(response.data.user);
       } catch (error) {
         setUser(null);

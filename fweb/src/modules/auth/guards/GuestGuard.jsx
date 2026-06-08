@@ -1,9 +1,9 @@
 import React from 'react'
-import { getAccessToken } from '../axiosAuth'
+import { getAccessToken } from '../lib/axiosClient'
 import { Navigate } from 'react-router-dom'
 import { useAuthMeta } from '../contexts/AuthContext'
 
-function PublicRoute({ children }) {
+function GuestGuard({ children }) {
   const { isInitializing } = useAuthMeta()
   const token = getAccessToken()
 
@@ -27,4 +27,4 @@ function PublicRoute({ children }) {
   )
 }
 
-export default PublicRoute
+export default GuestGuard

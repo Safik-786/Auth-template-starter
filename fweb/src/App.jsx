@@ -1,10 +1,13 @@
 import React from 'react'
-import AuthApp from './modules/auth/components/AuthApp'
+import AuthRoutes from './modules/auth/AuthRoutes'
+
+import { Toaster } from 'react-hot-toast'
 
 function App() {
   return (
     <div>
-      <AuthApp />
+      <Toaster position="top-center" />
+      <AuthRoutes />
     </div>
   )
 }

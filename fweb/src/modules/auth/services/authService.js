@@ -1,11 +1,11 @@
-import authApi from "../axiosAuth";
+import axiosClient from "../lib/axiosClient";
 import { useAuthMeta } from "../contexts/AuthContext";
 
 const {setAccessToken, setUser} =useAuthMeta()
 
 
 export const login = async (email, password) => {
-  const res = await authApi.post("/auth/login", {
+  const res = await axiosClient.post("/auth/login", {
     email,
     password,
   });
@@ -16,7 +16,7 @@ export const login = async (email, password) => {
 
 
 export const refreshAccessToken = async () => {
-  const res = await authApi.post(
+  const res = await axiosClient.post(
     "/auth/refresh"
   );
 

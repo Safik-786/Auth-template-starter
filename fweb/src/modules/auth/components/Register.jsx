@@ -1,9 +1,10 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { useSignupApi } from '../hooks/useAuthApi'
-import { setAccessToken } from '../axiosAuth'
+import { useSignupApi } from '../hooks/useAuthQueries'
+import { setAccessToken } from '../lib/axiosClient'
 import { useNavigate } from 'react-router-dom'
 import { useAuthMeta } from '../contexts/AuthContext'
+import toast from 'react-hot-toast'
 
 function Register() {
 
@@ -17,9 +18,11 @@ function Register() {
             const response = await mutateAsync(data)
             setAccessToken(response.accessToken)
             setUser(response.user)
+            toast.success("Account created successfully!")
             navigate("/dashboard")
         } catch (error) {
             console.error("Registration failed", error)
+            toast.error(error?.response?.data?.message || "Failed to create account. Please try again.")
         }
     }
     return (

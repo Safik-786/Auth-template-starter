@@ -1,9 +1,10 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { useLoginApi } from '../hooks/useAuthApi'
-import { setAccessToken } from '../axiosAuth'
+import { useLoginApi } from '../hooks/useAuthQueries'
+import { setAccessToken } from '../lib/axiosClient'
 import { useNavigate } from 'react-router-dom'
 import { useAuthMeta } from '../contexts/AuthContext'
+import toast from 'react-hot-toast'
 
 function Login() {
 
@@ -21,9 +22,11 @@ function Login() {
             // Set the token using the response from the server, not the form data
             setAccessToken(response.accessToken)
             setUser(response.user)
+            toast.success("Successfully logged in!")
             navigate("/dashboard")
         } catch (error) {
             console.error("Login failed", error)
+            toast.error(error?.response?.data?.message || "Failed to login. Please check your credentials.")
         }
     }
     return (

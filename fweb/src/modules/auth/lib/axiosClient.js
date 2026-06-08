@@ -9,12 +9,12 @@ export const setAccessToken = (token) => {
   accessToken = token;
 };
 
-const authApi = axios.create({
+const axiosClient = axios.create({
   baseURL: "http://localhost:5000/api",
   withCredentials: true,
 });
 
-authApi.interceptors.request.use(
+axiosClient.interceptors.request.use(
   (config) => {
     // Read the token directly from the local variable
     if (accessToken) {
@@ -25,7 +25,7 @@ authApi.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-authApi.interceptors.response.use(
+axiosClient.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
@@ -47,7 +47,7 @@ authApi.interceptors.response.use(
 
         originalRequest.headers.Authorization = `Bearer ${newToken}`;
 
-        return authApi(originalRequest);
+        return axiosClient(originalRequest);
       } catch (refreshError) {
         // Clear local variable
         setAccessToken(null);
@@ -59,4 +59,4 @@ authApi.interceptors.response.use(
   }
 );
 
-export default authApi;
+export default axiosClient;

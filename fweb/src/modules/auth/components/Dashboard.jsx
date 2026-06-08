@@ -1,5 +1,5 @@
 import React from 'react'
-import { useAuthMeta } from '../../contexts/AuthContext'
+import { useAuthMeta } from '../contexts/AuthContext'
 
 function Dashboard() {
     const { user } = useAuthMeta()
